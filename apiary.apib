@@ -79,8 +79,8 @@ Scope Values:
     + redirect_uri (required, string) ... Determines where the response is sent. The value must exactly match
       what was registered with PayrollHero.
     + response_type (required, string, `code`) ... should be `code`
-    + scope (required, string) ... Scopes that is needed by the Application. See above for the list of
-      possible values.
+    + scope (required, string, `read_employees`) ... Scopes that is needed by the Application. See above for the list of
+      possible values. This could be space delimited list or an array parameters.
     + state (required, string) ... parameter sent back to the redirect URI
 
 + Response 200 (text/html)
