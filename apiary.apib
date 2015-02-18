@@ -122,7 +122,7 @@ The 2-legged OAuth authentication works well with desktop applications when it's
 
 The application would need to gather the username and password and request PayrollHero Auth for the token.
 
-## On Auth Endpoint [/oauth/token{?client_id,client_secret,grant_type,password,username,type}]
+## On Auth Endpoint [/oauth/token{?client_id,client_secret,grant_type,password,username,type,scope}]
 
 
 ### Authorize/Authenticate [POST]
@@ -134,6 +134,8 @@ The application would need to gather the username and password and request Payro
     + username (required, string) ... User's username
     + password (required, string) ... User's password
     + type (required, string, `exchange`) ... should be `exchange`
+    + scope (required, string, `read_employees`) ... Scopes that is needed by the Application. See above for the list of
+      possible values. This could be space delimited list or an array parameters.
 
 + Response 200 (application/json)
 
