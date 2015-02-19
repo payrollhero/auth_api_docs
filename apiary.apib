@@ -143,3 +143,41 @@ The application would need to gather the username and password and request Payro
             "access_token": "9y90xtatectzfwn2n9pe4xx2j0cqr2v",
             "expires_in": 31536000
         }
+        
+# Token owner information
+
+Once you have a token, you may request info about the owner of a token by issuing a GET to /me with the token.
+
+This will tell you information about both the owner of the token and the scopes & validity of the token
+
+The 'token_hmac' is an hmac of the token provided.  It may be computed on the client end by using token_hmac = hmac_sha3(token, key: token)
+
+The client is expected to reject this response if token_hmac != computed_token_hmac
+
+## On Auth Endpoint [/me?token=[token]]
+
+### My Information [GET]
+
++ Parameters
+    + token (required, string) ... The token you are inquiring about
+
++ Response 200 (application/json)
+
+        {
+             "account_id": 4,
+             "client_name": "My Application Client Name",
+             "employee_id": 888,
+             "expires_at": "2016-02-19T20:38:50Z",
+             "id": 35,
+             "notification_email": "joe@gmail.com",
+             "scopes": [
+               "read_employees",
+               "read_worksites",
+               "read_schedules",
+               "write_schedules"
+             ],
+             "token_hmac": "1aa826bf3a7eea9db0a327a740de73c755b955bb1b137ea75dbcf0ab89900c7fded77fc49011da2ba06bb792a6228b793ccbb8a9fda5c63358b841ffffd487f5",
+             "type": "Employee",
+             "uid": 888,
+             "username": "joe_my_company"
+        }
