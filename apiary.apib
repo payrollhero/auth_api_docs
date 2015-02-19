@@ -181,3 +181,10 @@ The client is expected to reject this response if token_hmac != computed_token_h
              "uid": 888,
              "username": "joe_my_company"
         }
+        
++ Response 401 (application/json)
+     
+        {
+             "error": "invalid_token",
+             "error_description": "Invalid Token"
+        }
