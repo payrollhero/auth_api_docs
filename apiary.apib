@@ -188,3 +188,36 @@ The client is expected to reject this response if token_hmac != computed_token_h
              "error": "invalid_token",
              "error_description": "Invalid Token"
         }
+
+# Group Employee Information
+
+Once you have an application token, you can request employee details based on the username. The client is expected to reject this response if token_hmac != computed_token_hmac
+
+## On Auth Endpoint [/employee{?token},{?employee_username}]
+
+### Employee Information [GET]
+
++ Parameters
+    + token (required, string) ... The token you are inquiring about
+    + employee_username (required, string) ... The username of the employee
+    
++ Response 200 (application/json)
+
+        {
+             "employee_id": 1,
+             "account_id": 1
+        }
+
++ Response 404 (application/json)
+
+        {
+             "error": "not_found",
+             "error_description": "Employee Not Found"
+        }
+
++ Response 401 (application/json)
+     
+        {
+             "error": "invalid_token",
+             "error_description": "Invalid Token"
+        }
