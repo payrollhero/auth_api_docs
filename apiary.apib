@@ -124,6 +124,12 @@ The application would need to gather the username and password and request Payro
 
 ## On Auth Endpoint [/oauth/token{?client_id,client_secret,grant_type,password,username,type,scope}]
 
+# Group Implicit Grant 2-legged Oauth Authentication
+
+Sometimes it is better (for javascript or public desktop applications) to use the implicit grant.  In this case
+you use response_type = 'token' to directly receive a token on redirect.  This allows the app to not have to use
+a client_secret and expose it to the user.
+
 
 ### Authorize/Authenticate [POST]
 
@@ -133,7 +139,7 @@ The application would need to gather the username and password and request Payro
     + grant_type (required, string, `password`) ... should be `password`
     + username (required, string) ... User's username
     + password (required, string) ... User's password
-    + type (required, string, `exchange`) ... should be `exchange`
+    + response_type (required, string, `exchange`) ... `exchange` for explicit or 'token' for implicit grant.
     + scope (required, string, `read_employees`) ... Scopes that is needed by the Application. See above for the list of
       possible values. This could be space delimited list or an array parameters.
 
