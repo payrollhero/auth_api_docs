@@ -90,7 +90,7 @@ Scope Values:
 
 + Response 200 (text/html)
 
-## On Applicatoin Endpoint [/auth/payroll_hero/callback{?code,scope,state}]
+## On Application Endpoint [/auth/payroll_hero/callback{?code,scope,state}]
 
 ### Code - Step 3 [GET]
 
@@ -155,7 +155,7 @@ a client_secret and expose it to the user.
             "expires_in": 31536000
         }
         
-# Group Token owner information
+# Group Token Owner Info
 
 Once you have a token, you may request info about the owner of a token by issuing a GET to /me with the token.
 
@@ -165,9 +165,9 @@ The 'token_hmac' is an hmac of the token provided.  It may be computed on the cl
 
 The client is expected to reject this response if token_hmac != computed_token_hmac
 
-## On Auth Endpoint [/me{?token}]
+## Me [/me{?token}]
 
-### My Information [GET]
+### show [GET]
 
 + Parameters
     + token (required, string) ... The token you are inquiring about
@@ -204,9 +204,9 @@ The client is expected to reject this response if token_hmac != computed_token_h
 
 Once you have an application token, you can request employee details based on the username. The client is expected to reject this response if token_hmac != computed_token_hmac
 
-## On Auth Endpoint [/employee{?token}{?employee_username}]
+## Employee [/employee{?token}{?employee_username}]
 
-### Employee Information [GET]
+### show [GET]
 
 Request employee information based on employee username.
 
@@ -234,3 +234,75 @@ Request employee information based on employee username.
              "error": "invalid_token",
              "error_description": "Invalid Token"
         }
+
+# Group API v1
+
+## Client Status [/api/v1/client_status{?device_platform}{?app_name}{?version}]
+
+### show [GET]
+
+Check for client status.
+
++ Parameters
+    + device_platform: Acme Pad (required, string) - The device platform where the app is installed
+    + app_name: MyAwesomeApp (required, string) - The registered application name
+    + version: 1.0.0 (required, string) - The semantic version of the application
+
+
++ Request Supported Application
+
+    + Attributes
+        + device_platform: Acme Pad (required, string)
+        + app_name: MyAwesomeApp (required, string)
+        + version: 1.0.0 (required, string)
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": "ok"
+            }
+
+    + Attributes (object)
+        + status:ok (string, required) - application is fully supported
+
+
++ Request Deprecated Application
+
+    + Attributes
+        + device_platform: Acme Pad (required, string)
+        + app_name: MyAwesomeApp (required, string)
+        + version: 0.1.0 (required, string)
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": "deprecated",
+                "supported_until": 1456950696
+            }
+
+    + Attributes (object)
+        + status:deprecated (string, required) - application is supported for a limited time
+        + supported_until:ok (number, optional) - application is fully supported
+
+
++ Request Unsupported Application
+
+    + Attributes
+        + device_platform: Acme Pad (required, string)
+        + app_name: MyAwesomeApp (required, string)
+        + version: 0.0.1 (required, string)
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": "unsupported"
+            }
+
+    + Attributes (object)
+        + status:unsupported (string, required) - application is not guaranteed to work
