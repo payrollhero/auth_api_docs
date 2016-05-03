@@ -127,24 +127,23 @@ The 2-legged OAuth authentication works well with desktop applications when it's
 
 The application would need to gather the username and password and request PayrollHero Auth for the token.
 
-## On Auth Endpoint [/oauth/token{?client_id,client_secret,grant_type,password,username,type,scope}]
-
 # Group Implicit Grant 2-legged Oauth Authentication
 
 Sometimes it is better (for javascript or public desktop applications) to use the implicit grant.  In this case
 you use response_type = 'token' to directly receive a token on redirect.  This allows the app to not have to use
 a client_secret and expose it to the user.
 
+## On Auth Endpoint [/oauth/authenticate{?client_id,type,password,username,response_type,scope}]
 
 ### Authorize/Authenticate [POST]
 
+
 + Parameters
     + client_id (required, string) ... Application's client ID obtained from PayrollHero.
-    + client_secret (required, string) ... Application's client secret set on PayrollHero.
-    + grant_type (required, string, `password`) ... should be `password`
+    + type (required, string, `password`) ... should be `password`
     + username (required, string) ... User's username
     + password (required, string) ... User's password
-    + response_type (required, string, `exchange`) ... `exchange` for explicit or 'token' for implicit grant.
+    + response_type (required, string, `token`) ... Use `exchange` for explicit or 'token' for implicit grant.
     + scope (required, string, `read_employees`) ... Scopes that is needed by the Application. See above for the list of
       possible values. This could be space delimited list or an array parameters.
 
